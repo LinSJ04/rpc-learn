@@ -9,4 +9,11 @@
 
     <artifactId>test-server</artifactId>
     <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.work.rpc</groupId>
+            <artifactId>test-api</artifactId>
+        </dependency>
+    </dependencies>
 </project>
