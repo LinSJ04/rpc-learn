@@ -1,8 +1,5 @@
 package com.work.rpc.util;
 
-import com.pig.rpc.factory.SingletonFactory;
-import com.pig.rpc.registry.ServiceRegistry;
-import com.pig.rpc.registry.impl.ZkServiceRegistry;
 import lombok.extern.slf4j.Slf4j;
 
 /**
