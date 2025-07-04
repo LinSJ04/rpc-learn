@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="基于socket实现客户端发送请求">
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/socket/server/SocketRpcServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" afterDir="false" />
+    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="基于socket实现服务端监听并处理请求">
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/socket/client/SocketRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/socket/client/SocketRpcClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +33,6 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "1.8.0_101",
@@ -50,7 +49,7 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.com.work.rpc.client.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.work.rpc.server.Main" />
       <module name="test-server" />
@@ -64,8 +63,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="com.work.rpc.client.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.work.rpc.client.Main" />
+      <module name="test-client" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.work.rpc.client.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.com.work.rpc.client.Main" />
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
@@ -79,7 +92,7 @@
       <option name="presentableId" value="Default" />
       <updated>1751606528320</updated>
       <workItem from="1751606529490" duration="2626000" />
-      <workItem from="1751609269390" duration="5068000" />
+      <workItem from="1751609269390" duration="5524000" />
     </task>
     <task id="LOCAL-00001" summary="确认实现目标: 如何在client的main方法中实现对server的服务的远程调用.">
       <option name="closed" value="true" />
@@ -113,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751612836113</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="基于socket实现服务端监听并处理请求">
+      <option name="closed" value="true" />
+      <created>1751614636894</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1751614636894</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,6 +156,7 @@
     <MESSAGE value="定义通用的请求和响应对象" />
     <MESSAGE value="发送请求和启动服务的简易实现(尚未传输)." />
     <MESSAGE value="基于socket实现客户端发送请求" />
-    <option name="LAST_COMMIT_MESSAGE" value="基于socket实现客户端发送请求" />
+    <MESSAGE value="基于socket实现服务端监听并处理请求" />
+    <option name="LAST_COMMIT_MESSAGE" value="基于socket实现服务端监听并处理请求" />
   </component>
 </project>

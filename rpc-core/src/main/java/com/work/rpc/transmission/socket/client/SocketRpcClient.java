@@ -11,8 +11,16 @@ import java.net.Socket;
 
 @Slf4j
 public class SocketRpcClient implements RpcClient {
+    private String host;
+    private int port;
+
+    public SocketRpcClient(String host, int port) {
+        this.host = host;
+        this.port = port;
+    }
+
     public RpcResp<?> sendReq(RpcReq req) {
-        try (Socket socket = new Socket("localhost", 8888)) {
+        try (Socket socket = new Socket(host, port)) {
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             objectOutputStream.writeObject(req);
             // flush()强制将缓冲区中的任何尚未写出的数据立即写入到目标设备或文件中
