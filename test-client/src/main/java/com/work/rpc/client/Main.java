@@ -6,6 +6,9 @@ import com.work.rpc.dto.RpcReq;
 import com.work.rpc.dto.RpcResp;
 import com.work.rpc.transmission.RpcClient;
 import com.work.rpc.transmission.socket.client.SocketRpcClient;
+import com.work.rpc.util.ThreadPoolUtils;
+
+import java.util.concurrent.ExecutorService;
 
 public class Main {
     public static void main(String[] args) {
@@ -37,8 +40,14 @@ public class Main {
                             .parameters(new Object[]{1L})
                             .parameterTypes(new Class[]{Long.class})
                             .build();
-        RpcResp<?> rpcResp = rpcClient.sendReq(req);
-        Object data = rpcResp.getData();
-        System.out.println("data = " + data);
+        ExecutorService threadPool = ThreadPoolUtils.createIoIntensiveThreadPool("test");
+        for (int i = 0; i < 10; i++) {
+            threadPool.submit(()-> {
+                User user = (User)rpcClient.sendReq(req).getData();
+                System.out.println("user = " + user);
+            });
+        }
+//        User user = (User)rpcClient.sendReq(req).getData();
+//        System.out.println("user = " + user);
     }
 }

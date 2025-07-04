@@ -7,6 +7,7 @@ import com.work.rpc.handler.RpcReqHandler;
 import com.work.rpc.provider.ServiceProvider;
 import com.work.rpc.provider.impl.SimpleServiceProvider;
 import com.work.rpc.transmission.RpcServer;
+import com.work.rpc.util.ThreadPoolUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,13 +16,14 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
 
 @Slf4j
 public class SocketRpcServer implements RpcServer {
     private final int port;
     private final RpcReqHandler rpcReqHandler;
-
     private final ServiceProvider serviceProvider;
+    private final ExecutorService executorService;
 
     public SocketRpcServer(int port) {
         this(port, new SimpleServiceProvider());
@@ -31,6 +33,7 @@ public class SocketRpcServer implements RpcServer {
         this.port = port;
         this.rpcReqHandler = new RpcReqHandler(serviceProvider);
         this.serviceProvider = serviceProvider;
+        this.executorService = ThreadPoolUtils.createIoIntensiveThreadPool("socket-rpc-server-");
     }
 
     @Override
@@ -40,18 +43,8 @@ public class SocketRpcServer implements RpcServer {
             Socket socket;
             // serverSocket 会持续监听
             while ((socket = serverSocket.accept()) != null) {
-                ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-                RpcReq rpcReq = (RpcReq) objectInputStream.readObject();
-                System.out.println("rpcReq = " + rpcReq);
-
-                // 假设调用了req中的接口实现类的方法
-//                String data = "模拟调用成功获得的数据";
-                Object data = rpcReqHandler.invoke(rpcReq);
-
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-                RpcResp<?> rpcResp = RpcResp.success(rpcReq.getReqId(), data);
-                objectOutputStream.writeObject(rpcResp);
-                objectOutputStream.flush();
+                // 每监听到一个请求，new一个线程任务，用线程池执行线程任务即可
+                executorService.submit(new SocketReqHandler(socket, rpcReqHandler));
             }
         } catch (Exception e) {
             log.error("服务端异常", e);
