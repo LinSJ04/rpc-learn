@@ -13,6 +13,11 @@
     <dependencies>
         <dependency>
             <groupId>com.work.rpc</groupId>
+            <artifactId>rpc-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.work.rpc</groupId>
             <artifactId>test-api</artifactId>
         </dependency>
     </dependencies>

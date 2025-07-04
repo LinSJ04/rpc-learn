@@ -49,6 +49,12 @@
     <dependencies>
       <dependency>
         <groupId>com.work.rpc</groupId>
+        <artifactId>rpc-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.work.rpc</groupId>
         <artifactId>test-api</artifactId>
         <version>${project.version}</version>
       </dependency>

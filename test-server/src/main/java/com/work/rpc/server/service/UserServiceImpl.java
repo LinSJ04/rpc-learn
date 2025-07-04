@@ -1,4 +1,4 @@
-package com.work.rpc.server;
+package com.work.rpc.server.service;
 
 import cn.hutool.core.util.IdUtil;
 import com.work.rpc.api.User;
