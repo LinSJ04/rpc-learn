@@ -3,6 +3,7 @@ package com.work.rpc.transmission.socket.server;
 import com.work.rpc.config.RpcServiceConfig;
 import com.work.rpc.dto.RpcReq;
 import com.work.rpc.dto.RpcResp;
+import com.work.rpc.handler.RpcReqHandler;
 import com.work.rpc.provider.ServiceProvider;
 import com.work.rpc.provider.impl.SimpleServiceProvider;
 import com.work.rpc.transmission.RpcServer;
@@ -17,16 +18,18 @@ import java.net.Socket;
 
 @Slf4j
 public class SocketRpcServer implements RpcServer {
-    private int port;
-    private ServiceProvider serviceProvider;
+    private final int port;
+    private final RpcReqHandler rpcReqHandler;
+
+    private final ServiceProvider serviceProvider;
 
     public SocketRpcServer(int port) {
-        this.port = port;
-        this.serviceProvider = new SimpleServiceProvider();
+        this(port, new SimpleServiceProvider());
     }
 
     public SocketRpcServer(int port, ServiceProvider serviceProvider) {
         this.port = port;
+        this.rpcReqHandler = new RpcReqHandler(serviceProvider);
         this.serviceProvider = serviceProvider;
     }
 
@@ -43,7 +46,7 @@ public class SocketRpcServer implements RpcServer {
 
                 // 假设调用了req中的接口实现类的方法
 //                String data = "模拟调用成功获得的数据";
-                Object data = invoke(rpcReq);
+                Object data = rpcReqHandler.invoke(rpcReq);
 
                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
                 RpcResp<?> rpcResp = RpcResp.success(rpcReq.getReqId(), data);
@@ -58,18 +61,5 @@ public class SocketRpcServer implements RpcServer {
     @Override
     public void publishService(RpcServiceConfig rpcServiceConfig) {
         serviceProvider.publishService(rpcServiceConfig);
-    }
-
-    @SneakyThrows // Lombok, 相当于帮忙做了try catch
-    private Object invoke(RpcReq rpcReq) {
-        String rpcServiceName = rpcReq.rpcServiceName();
-        Object service = serviceProvider.getService(rpcServiceName);
-
-        // 获取到全类名
-        log.debug("获取到对应服务：{}", service.getClass().getCanonicalName());
-        // 使用反射获取Class对象
-        return service.getClass()
-                .getMethod(rpcReq.getMethodName(), rpcReq.getParameterTypes())
-                .invoke(service, rpcReq.getParameters());
     }
 }
