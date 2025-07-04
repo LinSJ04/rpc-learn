@@ -1,5 +1,6 @@
 package com.work.rpc.config;
 
+import cn.hutool.core.util.StrUtil;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class RpcServiceConfig { // 服务发布的配置类
 
     public List<String> rpcServiceNames() {
         List<String> interfaceNames = interfaceNames();
+        // version,group 如果没有传参，默认是空的
         return interfaceNames.stream()
                 .map(interfaceName -> interfaceName + getVersion() + getGroup())
                 .collect(Collectors.toList());

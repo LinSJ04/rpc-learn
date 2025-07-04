@@ -17,8 +17,12 @@ public class Main {
 //        rpcServer.start();
 //        RpcServer rpcServer = new SocketRpcServer(8888);
 //        rpcServer.start();
-        UserService userServiceImpl = new UserServiceImpl();
-        RpcServiceConfig rpcServiceConfig = new RpcServiceConfig("1.0.0", "common", userServiceImpl);
-        System.out.println("对应接口全类名 = " + rpcServiceConfig.rpcServiceNames());
+//        UserService userServiceImpl = new UserServiceImpl();
+//        RpcServiceConfig rpcServiceConfig = new RpcServiceConfig("1.0.0", "common", userServiceImpl);
+//        System.out.println("对应接口全类名 = " + rpcServiceConfig.rpcServiceNames());
+
+        RpcServer rpcServer = new SocketRpcServer(8888);
+        rpcServer.publishService(new RpcServiceConfig(new UserServiceImpl()));
+        rpcServer.start();
     }
 }
