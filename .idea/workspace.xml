@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="fix">
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/socket/server/SocketReqHandler.java" afterDir="false" />
+    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="自定义异常">
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/proxy/RpcClientProxy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/socket/server/SocketRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/socket/server/SocketRpcServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +18,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -26,37 +26,43 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
   <component name="ProjectId" id="2zOePrx62SRd7P8nHSTmhZ1n72V" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8.0_101&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/javaProject/pig-rpc&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "1.8.0_101",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/javaProject/rpc-learn",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.work.rpc.util" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.com.work.rpc.client.Main">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.work.rpc.server.Main" />
       <module name="test-server" />
@@ -85,10 +91,18 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.com.work.rpc.client.Main" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.com.work.rpc.client.Main" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -100,6 +114,7 @@
       <updated>1751606528320</updated>
       <workItem from="1751606529490" duration="2626000" />
       <workItem from="1751609269390" duration="16424000" />
+      <workItem from="1752292306269" duration="1843000" />
     </task>
     <task id="LOCAL-00001" summary="确认实现目标: 如何在client的main方法中实现对server的服务的远程调用.">
       <option name="closed" value="true" />
@@ -197,7 +212,15 @@
       <option name="project" value="LOCAL" />
       <updated>1751623921425</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="自定义异常">
+      <option name="closed" value="true" />
+      <created>1752292405167</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1752292405167</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,6 +250,7 @@
     <MESSAGE value="将对请求的处理放在一个单独的类RpcReqHandler中" />
     <MESSAGE value="线程池工具以及jvm运行结束时关闭线程池" />
     <MESSAGE value="fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix" />
+    <MESSAGE value="自定义异常" />
+    <option name="LAST_COMMIT_MESSAGE" value="自定义异常" />
   </component>
 </project>
