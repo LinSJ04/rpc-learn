@@ -19,17 +19,17 @@ public class Main {
 //        rpcServer.start();
 //        RpcServer rpcServer = new SocketRpcServer(8888);
 //        rpcServer.start();
-//        UserService userServiceImpl = new UserServiceImpl();
-//        RpcServiceConfig rpcServiceConfig = new RpcServiceConfig("1.0.0", "common", userServiceImpl);
-//        System.out.println("对应接口全类名 = " + rpcServiceConfig.rpcServiceNames());
+        UserService userServiceImpl = new UserServiceImpl();
+        RpcServiceConfig rpcServiceConfig = new RpcServiceConfig("1.0.0", "common", userServiceImpl);
+        System.out.println("对应接口全类名 = " + rpcServiceConfig.rpcServiceNames());
 
-//        RpcServer rpcServer = new SocketRpcServer(8888);
-//        rpcServer.publishService(new RpcServiceConfig(new UserServiceImpl()));
-//        rpcServer.start();
-        // 动态代理的作用：动态地生成这个实现类对应的接口的实现类
-        RpcClientProxy rpcClientProxy = new RpcClientProxy(new UserServiceImpl());
-        UserService userService = rpcClientProxy.getProxy();
-        User user = userService.getUser(1L);
-        System.out.println("user = " + user);
+        RpcServer rpcServer = new SocketRpcServer(8888);
+        rpcServer.publishService(new RpcServiceConfig(new UserServiceImpl()));
+        rpcServer.start();
+//        // jdk代理：被代理类实现接口，动态代理生成这个实现类对应的接口的实现类
+//        RpcClientProxy rpcClientProxy = new RpcClientProxy(new UserServiceImpl());
+//        UserService userService = rpcClientProxy.getProxy();
+//        User user = userService.getUser(1L);
+//        System.out.println("user = " + user);
     }
 }

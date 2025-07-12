@@ -2,8 +2,10 @@ package com.work.rpc.client;
 
 import com.work.rpc.api.User;
 import com.work.rpc.api.UserService;
+import com.work.rpc.client.utils.ProxyUtils;
 import com.work.rpc.dto.RpcReq;
 import com.work.rpc.dto.RpcResp;
+import com.work.rpc.proxy.RpcClientProxy;
 import com.work.rpc.transmission.RpcClient;
 import com.work.rpc.transmission.socket.client.SocketRpcClient;
 import com.work.rpc.util.ThreadPoolUtils;
@@ -32,22 +34,25 @@ public class Main {
 //        RpcResp<?> rpcResp = rpcClient.sendReq(req);
 //        User user = (User)rpcResp.getData();
 //        System.out.println("user = " + user);
-        RpcClient rpcClient = new SocketRpcClient("localhost", 8888);
-        RpcReq req = RpcReq.builder()
-                            .reqId("123")
-                            .interfaceName("com.work.rpc.api.UserService")
-                            .methodName("getUser")
-                            .parameters(new Object[]{1L})
-                            .parameterTypes(new Class[]{Long.class})
-                            .build();
-        ExecutorService threadPool = ThreadPoolUtils.createIoIntensiveThreadPool("test");
-        for (int i = 0; i < 10; i++) {
-            threadPool.submit(()-> {
-                User user = (User)rpcClient.sendReq(req).getData();
-                System.out.println("user = " + user);
-            });
-        }
+//        RpcClient rpcClient = new SocketRpcClient("localhost", 8888);
+//        RpcReq req = RpcReq.builder()
+//                            .reqId("123")
+//                            .interfaceName("com.work.rpc.api.UserService")
+//                            .methodName("getUser")
+//                            .parameters(new Object[]{1L})
+//                            .parameterTypes(new Class[]{Long.class})
+//                            .build();
+//        ExecutorService threadPool = ThreadPoolUtils.createIoIntensiveThreadPool("test");
+//        for (int i = 0; i < 10; i++) {
+//            threadPool.submit(()-> {
+//                User user = (User)rpcClient.sendReq(req).getData();
+//                System.out.println("user = " + user);
+//            });
+//        }
 //        User user = (User)rpcClient.sendReq(req).getData();
 //        System.out.println("user = " + user);
+        UserService userService = ProxyUtils.getProxy(UserService.class);
+        User user = userService.getUser(1L);
+        System.out.println("user = " + user);
     }
 }

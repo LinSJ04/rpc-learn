@@ -14,4 +14,12 @@ public enum RpcRespStatus { // 枚举只需要get和toString
 
     private final int code;
     private final String msg;
+
+    public static boolean isSuccessful(int code) {
+        return code == SUCCESS.getCode();
+    }
+
+    public static boolean isFail(int code) {
+        return !isSuccessful(code);
+    }
 }
