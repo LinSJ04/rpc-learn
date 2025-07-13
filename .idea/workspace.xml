@@ -4,11 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="测试动态代理生成实现类的接口的实现类">
+    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="引入zookeeper实现服务注册的原因分析">
+      <change afterPath="$PROJECT_DIR$/.idea/MarsCodeWorkspaceAppSettings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/constant/RpcConstant.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/factory/SingletonFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/LoadBalance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/RandomLoadBalance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/provider/impl/ZkServiceProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/registry/ServiceDiscovery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/registry/ServiceRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/registry/impl/ZkServiceDiscovery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/registry/impl/ZkServiceRegistry.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/registry/zk/ZkClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/util/IPUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/enums/RpcRespStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/enums/RpcRespStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/proxy/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/proxy/RpcClientProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/socket/client/SocketRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/socket/client/SocketRpcClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/socket/server/SocketRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/socket/server/SocketRpcServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/utils/ProxyUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/utils/ProxyUtils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +33,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="FxmlFile" />
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -28,9 +42,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 2
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 2
+}</component>
   <component name="ProjectId" id="2zOePrx62SRd7P8nHSTmhZ1n72V" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -38,9 +52,12 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Application.AppTest.executor": "Run",
     "Application.Main.executor": "Run",
+    "Application.com.work.rpc.client.Main.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
@@ -65,12 +82,12 @@
     </key>
   </component>
   <component name="RunManager" selected="Application.com.work.rpc.client.Main">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.work.rpc.server.Main" />
+    <configuration name="AppTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.work.rpc.AppTest" />
       <module name="test-server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.work.rpc.server.*" />
+          <option name="PATTERN" value="com.work.rpc.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -91,10 +108,43 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="server1" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="com.work.rpc.server.Main" />
+      <module name="test-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.work.rpc.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="server2" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.work.rpc.server.Main" />
+      <module name="test-server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.work.rpc.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.server2" />
+      <item itemvalue="Application.AppTest" />
+      <item itemvalue="Application.com.work.rpc.client.Main" />
+      <item itemvalue="Application.server1" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.com.work.rpc.client.Main" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.server1" />
+        <item itemvalue="Application.AppTest" />
       </list>
     </recent_temporary>
   </component>
@@ -116,7 +166,9 @@
       <updated>1751606528320</updated>
       <workItem from="1751606529490" duration="2626000" />
       <workItem from="1751609269390" duration="16424000" />
-      <workItem from="1752292306269" duration="3310000" />
+      <workItem from="1752292306269" duration="8335000" />
+      <workItem from="1752331889132" duration="52000" />
+      <workItem from="1752373024804" duration="6752000" />
     </task>
     <task id="LOCAL-00001" summary="确认实现目标: 如何在client的main方法中实现对server的服务的远程调用.">
       <option name="closed" value="true" />
@@ -230,7 +282,31 @@
       <option name="project" value="LOCAL" />
       <updated>1752302956865</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="动态代理实现请求发送">
+      <option name="closed" value="true" />
+      <created>1752304841452</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1752304841452</updated>
+    </task>
+    <task id="LOCAL-00016" summary="测试zookeeper的基本使用">
+      <option name="closed" value="true" />
+      <created>1752331917522</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1752331917522</updated>
+    </task>
+    <task id="LOCAL-00017" summary="引入zookeeper实现服务注册的原因分析">
+      <option name="closed" value="true" />
+      <created>1752373537389</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1752373537389</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -262,6 +338,9 @@
     <MESSAGE value="fix" />
     <MESSAGE value="自定义异常" />
     <MESSAGE value="测试动态代理生成实现类的接口的实现类" />
-    <option name="LAST_COMMIT_MESSAGE" value="测试动态代理生成实现类的接口的实现类" />
+    <MESSAGE value="动态代理实现请求发送" />
+    <MESSAGE value="测试zookeeper的基本使用" />
+    <MESSAGE value="引入zookeeper实现服务注册的原因分析" />
+    <option name="LAST_COMMIT_MESSAGE" value="引入zookeeper实现服务注册的原因分析" />
   </component>
 </project>

@@ -1,11 +1,14 @@
 package com.work.rpc.transmission.socket.server;
 
 import com.work.rpc.config.RpcServiceConfig;
+import com.work.rpc.constant.RpcConstant;
 import com.work.rpc.dto.RpcReq;
 import com.work.rpc.dto.RpcResp;
+import com.work.rpc.factory.SingletonFactory;
 import com.work.rpc.handler.RpcReqHandler;
 import com.work.rpc.provider.ServiceProvider;
 import com.work.rpc.provider.impl.SimpleServiceProvider;
+import com.work.rpc.provider.impl.ZkServiceProvider;
 import com.work.rpc.transmission.RpcServer;
 import com.work.rpc.util.ThreadPoolUtils;
 import lombok.SneakyThrows;
@@ -25,8 +28,12 @@ public class SocketRpcServer implements RpcServer {
     private final ServiceProvider serviceProvider;
     private final ExecutorService executorService;
 
+    public SocketRpcServer() {
+        this(RpcConstant.SERVER_PORT);
+    }
+
     public SocketRpcServer(int port) {
-        this(port, new SimpleServiceProvider());
+        this(port, SingletonFactory.getInstance(ZkServiceProvider.class));
     }
 
     public SocketRpcServer(int port, ServiceProvider serviceProvider) {

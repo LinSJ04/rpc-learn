@@ -23,7 +23,7 @@ public class Main {
         RpcServiceConfig rpcServiceConfig = new RpcServiceConfig("1.0.0", "common", userServiceImpl);
         System.out.println("对应接口全类名 = " + rpcServiceConfig.rpcServiceNames());
 
-        RpcServer rpcServer = new SocketRpcServer(8888);
+        RpcServer rpcServer = new SocketRpcServer();
         rpcServer.publishService(new RpcServiceConfig(new UserServiceImpl()));
         rpcServer.start();
 //        // jdk代理：被代理类实现接口，动态代理生成这个实现类对应的接口的实现类
