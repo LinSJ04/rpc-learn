@@ -11,6 +11,7 @@ import com.work.rpc.transmission.socket.client.SocketRpcClient;
 import com.work.rpc.util.ThreadPoolUtils;
 
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
@@ -52,7 +53,12 @@ public class Main {
 //        User user = (User)rpcClient.sendReq(req).getData();
 //        System.out.println("user = " + user);
         UserService userService = ProxyUtils.getProxy(UserService.class);
-        User user = userService.getUser(1L);
-        System.out.println("user = " + user);
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        for (int i = 0; i < 10; i++) {
+            executorService.submit(() -> {
+                User user = userService.getUser(1L);
+                System.out.println("user = " + user);
+            });
+        }
     }
 }

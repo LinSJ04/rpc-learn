@@ -10,6 +10,7 @@ import com.work.rpc.provider.ServiceProvider;
 import com.work.rpc.provider.impl.SimpleServiceProvider;
 import com.work.rpc.provider.impl.ZkServiceProvider;
 import com.work.rpc.transmission.RpcServer;
+import com.work.rpc.util.ShutdownHookUtils;
 import com.work.rpc.util.ThreadPoolUtils;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +46,7 @@ public class SocketRpcServer implements RpcServer {
 
     @Override
     public void start() {
+        ShutdownHookUtils.clearAll(); // 结束的时候清理所有注册的服务
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             log.info("服务启动，端口：{}", port);
             Socket socket;

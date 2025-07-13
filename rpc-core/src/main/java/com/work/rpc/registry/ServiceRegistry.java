@@ -8,4 +8,6 @@ import java.net.InetSocketAddress;
 public interface ServiceRegistry {
     // InetSocketAddress 包含了主机名和端口号
     void registerService(String rpcServiceName, InetSocketAddress address);
+
+    void clearAll();
 }
