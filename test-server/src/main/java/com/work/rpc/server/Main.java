@@ -3,6 +3,7 @@ package com.work.rpc.server;
 import com.work.rpc.api.User;
 import com.work.rpc.api.UserService;
 import com.work.rpc.config.RpcServiceConfig;
+import com.work.rpc.netty.server.NettyRpcServer;
 import com.work.rpc.proxy.RpcClientProxy;
 import com.work.rpc.server.service.UserServiceImpl;
 import com.work.rpc.transmission.RpcServer;
@@ -23,8 +24,10 @@ public class Main {
         RpcServiceConfig rpcServiceConfig = new RpcServiceConfig("1.0.0", "common", userServiceImpl);
         System.out.println("对应接口全类名 = " + rpcServiceConfig.rpcServiceNames());
 
-        RpcServer rpcServer = new SocketRpcServer();
-        rpcServer.publishService(new RpcServiceConfig(new UserServiceImpl()));
+//        RpcServer rpcServer = new SocketRpcServer();
+//        rpcServer.publishService(new RpcServiceConfig(new UserServiceImpl()));
+//        rpcServer.start();
+        RpcServer rpcServer = new NettyRpcServer();
         rpcServer.start();
 //        // jdk代理：被代理类实现接口，动态代理生成这个实现类对应的接口的实现类
 //        RpcClientProxy rpcClientProxy = new RpcClientProxy(new UserServiceImpl());

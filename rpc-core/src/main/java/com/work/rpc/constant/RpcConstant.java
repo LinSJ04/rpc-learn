@@ -8,4 +8,8 @@ public class RpcConstant {
     public static final int ZK_PORT = 2181; // Zookeeper端口号
 
     public static final String ZK_RPC_ROOT_PATH = "/rpc"; // Zookeeper根路径
+
+
+    // netty
+    public static final String NETTY_RPC_KEY = "RpcResp";
 }

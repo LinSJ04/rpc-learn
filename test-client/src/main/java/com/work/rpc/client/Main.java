@@ -5,6 +5,7 @@ import com.work.rpc.api.UserService;
 import com.work.rpc.client.utils.ProxyUtils;
 import com.work.rpc.dto.RpcReq;
 import com.work.rpc.dto.RpcResp;
+import com.work.rpc.netty.client.NettyRpcClient;
 import com.work.rpc.proxy.RpcClientProxy;
 import com.work.rpc.transmission.RpcClient;
 import com.work.rpc.transmission.socket.client.SocketRpcClient;
@@ -52,13 +53,16 @@ public class Main {
 //        }
 //        User user = (User)rpcClient.sendReq(req).getData();
 //        System.out.println("user = " + user);
-        UserService userService = ProxyUtils.getProxy(UserService.class);
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
-        for (int i = 0; i < 10; i++) {
-            executorService.submit(() -> {
-                User user = userService.getUser(1L);
-                System.out.println("user = " + user);
-            });
-        }
+//        UserService userService = ProxyUtils.getProxy(UserService.class);
+//        ExecutorService executorService = Executors.newFixedThreadPool(10);
+//        for (int i = 0; i < 10; i++) {
+//            executorService.submit(() -> {
+//                User user = userService.getUser(1L);
+//                System.out.println("user = " + user);
+//            });
+//        }
+        RpcClient rpcClient = new NettyRpcClient();
+        // 目前返回为null
+        RpcResp<?> rpcResp = rpcClient.sendReq(RpcReq.builder().interfaceName("模拟请求数据").build());
     }
 }

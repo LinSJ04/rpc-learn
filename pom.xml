@@ -37,7 +37,7 @@
     </dependency>
     <dependency>
       <groupId>cn.hutool</groupId>
-      <artifactId>hutool-core</artifactId>
+      <artifactId>hutool-all</artifactId>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
@@ -67,7 +67,7 @@
       </dependency>
       <dependency>
         <groupId>cn.hutool</groupId>
-        <artifactId>hutool-core</artifactId>
+        <artifactId>hutool-all</artifactId>
         <version>${hutool.version}</version>
       </dependency>
       <dependency>
