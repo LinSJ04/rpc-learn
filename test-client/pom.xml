@@ -20,6 +20,12 @@
             <groupId>com.work.rpc</groupId>
             <artifactId>test-api</artifactId>
         </dependency>
+
+        <!--网络编程-->
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
