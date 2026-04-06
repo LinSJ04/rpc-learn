@@ -2,9 +2,13 @@ package com.work.rpc.transmission.netty.server;
 
 import com.work.rpc.config.RpcServiceConfig;
 import com.work.rpc.constant.RpcConstant;
+import com.work.rpc.factory.SingletonFactory;
+import com.work.rpc.provider.ServiceProvider;
+import com.work.rpc.provider.impl.ZkServiceProvider;
 import com.work.rpc.transmission.RpcServer;
 import com.work.rpc.transmission.codec.NettyRpcDecoder;
 import com.work.rpc.transmission.codec.NettyRpcEncoder;
+import com.work.rpc.util.ShutdownHookUtils;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -17,6 +21,27 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class NettyRpcServer implements RpcServer {
+    private final ServiceProvider serviceProvider;
+    private final int port;
+
+    public NettyRpcServer() {
+        this(RpcConstant.SERVER_PORT);
+    }
+
+    public NettyRpcServer(int port) {
+        this(SingletonFactory.getInstance(ZkServiceProvider.class), port);
+    }
+
+    public NettyRpcServer(ServiceProvider serviceProvider) {
+        this(serviceProvider, RpcConstant.SERVER_PORT);
+    }
+
+    public NettyRpcServer(ServiceProvider serviceProvider, int port) {
+        this.serviceProvider = serviceProvider;
+        this.port = port;
+    }
+
+
     @Override
     public void start() {
         NioEventLoopGroup bossEventLoopGroup = new NioEventLoopGroup();
@@ -31,11 +56,12 @@ public class NettyRpcServer implements RpcServer {
                         protected void initChannel(NioSocketChannel channel) throws Exception {
                             channel.pipeline().addLast(new NettyRpcDecoder());
                             channel.pipeline().addLast(new NettyRpcEncoder());
-                            channel.pipeline().addLast(new NettyRpcServerHandler());
+                            channel.pipeline().addLast(new NettyRpcServerHandler(serviceProvider));
                         }
                     });
-            ChannelFuture channelFuture = serverBootstrap.bind(RpcConstant.SERVER_PORT).sync();
-            log.info("netty rpc server已启动，端口: {}", RpcConstant.SERVER_PORT);
+            ShutdownHookUtils.clearAll();
+            ChannelFuture channelFuture = serverBootstrap.bind(port).sync();
+            log.info("netty rpc server已启动，端口: {}", port);
             channelFuture.channel().closeFuture().sync();
         } catch (InterruptedException e) {
             log.error("服务端异常", e);
@@ -47,6 +73,6 @@ public class NettyRpcServer implements RpcServer {
 
     @Override
     public void publishService(RpcServiceConfig rpcServiceConfig) {
-
+        serviceProvider.publishService(rpcServiceConfig);
     }
 }

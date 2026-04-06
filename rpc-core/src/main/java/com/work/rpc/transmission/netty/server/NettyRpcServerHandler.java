@@ -7,6 +7,8 @@ import com.work.rpc.enums.CompressType;
 import com.work.rpc.enums.MsgType;
 import com.work.rpc.enums.SerializeType;
 import com.work.rpc.enums.VersionType;
+import com.work.rpc.handler.RpcReqHandler;
+import com.work.rpc.provider.ServiceProvider;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -14,21 +16,39 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class NettyRpcServerHandler extends SimpleChannelInboundHandler<RpcMsg> {
+    private final RpcReqHandler rpcReqHandler;
+
+    public NettyRpcServerHandler(ServiceProvider serviceProvider) {
+        this.rpcReqHandler = new RpcReqHandler(serviceProvider);
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, RpcMsg rpcMsg) throws Exception {
         log.debug("接收到客户端请求: {}", rpcMsg);
-        RpcReq rpcReq = (RpcReq) rpcMsg.getData();
         // rpcReq是业务的请求id
         // RpcMsg的reqId是协议的请求id
-        RpcResp<String> rpcResp = RpcResp.success(rpcReq.getReqId(), "模拟响应数据");
+
+        MsgType msgType;
+        Object data;
+
+        // 区分心跳请求/rpc请求
+        if (rpcMsg.getMsgType().isHeartbeat()) {
+            msgType = MsgType.HEARTBEAT_RESP;
+            data = null;
+        } else {
+            msgType = MsgType.RPC_RESP;
+            // 调用方法处理请求
+            RpcReq rpcReq = (RpcReq) rpcMsg.getData();
+            data = handleRpcReq(rpcReq);
+        }
 
         RpcMsg msg = RpcMsg.builder()
                         .reqId(rpcMsg.getReqId())
                         .version(VersionType.VERSION1)
-                        .msgType(MsgType.RPC_RESP)
+                        .msgType(msgType)
                         .serializeType(SerializeType.KRYO)
                         .compressType(CompressType.GZIP)
-                        .data(rpcResp)
+                        .data(data)
                         .build();
         // 成功之后关闭
         ctx.channel()
@@ -40,5 +60,15 @@ public class NettyRpcServerHandler extends SimpleChannelInboundHandler<RpcMsg> {
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         log.error("服务端异常", cause);
         ctx.close();
+    }
+
+    private RpcResp<?> handleRpcReq(RpcReq rpcReq) {
+        try {
+            Object object = rpcReqHandler.invoke(rpcReq);
+            return RpcResp.success(rpcReq.getReqId(), object);
+        } catch (Exception e) {
+            log.info("调用失败", e);
+            return RpcResp.fail(rpcReq.getReqId(), e.getMessage());
+        }
     }
 }

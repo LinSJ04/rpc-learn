@@ -8,12 +8,14 @@ import com.work.rpc.provider.ServiceProvider;
 import com.work.rpc.registry.ServiceRegistry;
 import com.work.rpc.registry.impl.ZkServiceRegistry;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 public class ZkServiceProvider implements ServiceProvider {
     private final Map<String, Object> SERVICE_CACHE = new HashMap<>();
     private final ServiceRegistry serviceRegistry;
@@ -47,11 +49,12 @@ public class ZkServiceProvider implements ServiceProvider {
     @SneakyThrows
     private void publishService(String rpcServiceName, Object service) {
         String host = InetAddress.getLocalHost().getHostName();
+        // todo 暂时先用默认端口，后续再考虑是否需要动态获取
         int port = RpcConstant.SERVER_PORT;
 
         InetSocketAddress address = new InetSocketAddress(host, port);
         serviceRegistry.registerService(rpcServiceName, address);
-
+        log.info("注册服务, rpcServiceName: {}, address: {}", rpcServiceName, address);
         SERVICE_CACHE.put(rpcServiceName, service);
     }
 }

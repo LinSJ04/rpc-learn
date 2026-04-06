@@ -35,6 +35,7 @@ public class ZkServiceRegistry implements ServiceRegistry {
                 + IPUtils.tpIpPort(address);
 
         zkClient.createPersistentNode(path);
+
     }
 
     @SneakyThrows

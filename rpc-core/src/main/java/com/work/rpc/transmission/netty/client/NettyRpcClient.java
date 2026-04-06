@@ -8,6 +8,9 @@ import com.work.rpc.enums.CompressType;
 import com.work.rpc.enums.MsgType;
 import com.work.rpc.enums.SerializeType;
 import com.work.rpc.enums.VersionType;
+import com.work.rpc.factory.SingletonFactory;
+import com.work.rpc.registry.ServiceDiscovery;
+import com.work.rpc.registry.impl.ZkServiceDiscovery;
 import com.work.rpc.transmission.RpcClient;
 import com.work.rpc.transmission.codec.NettyRpcDecoder;
 import com.work.rpc.transmission.codec.NettyRpcEncoder;
@@ -21,16 +24,26 @@ import io.netty.util.AttributeKey;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import java.net.InetSocketAddress;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class NettyRpcClient implements RpcClient {
+    private final ServiceDiscovery serviceDiscovery;
     private static final Bootstrap bootstrap;
 
     private static final int DEFAULT_CONNECT_TIMEOUT = 5000;
 
     // CAS自旋实现线程安全
     private static final AtomicInteger ID_GEN = new AtomicInteger(0);
+
+    public NettyRpcClient() {
+        this(SingletonFactory.getInstance(ZkServiceDiscovery.class));
+    }
+
+    public NettyRpcClient(ServiceDiscovery serviceDiscovery) {
+        this.serviceDiscovery = serviceDiscovery;
+    }
 
     static {
         bootstrap = new Bootstrap();
@@ -50,10 +63,12 @@ public class NettyRpcClient implements RpcClient {
     @SneakyThrows
     @Override
     public RpcResp<?> sendReq(RpcReq req) {
+        // 获取对应方法的address
+        InetSocketAddress address = serviceDiscovery.lookupService(req);
         // 连接之后会等待
-        ChannelFuture channelFuture = bootstrap.connect("127.0.0.1", RpcConstant.SERVER_PORT).sync();
+        ChannelFuture channelFuture = bootstrap.connect(address).sync();
 
-        log.info("netty rpc client连接到xxx");
+        log.info("netty rpc client连接到: {}", address);
         Channel channel = channelFuture.channel();
         // 如果发送，关闭channel
 

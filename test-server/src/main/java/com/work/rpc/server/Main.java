@@ -18,13 +18,14 @@ public class Main {
 //        RpcServer rpcServer = new SocketRpcServer(8888);
 //        rpcServer.start();
         UserService userServiceImpl = new UserServiceImpl();
-        RpcServiceConfig rpcServiceConfig = new RpcServiceConfig("1.0.0", "common", userServiceImpl);
+        RpcServiceConfig rpcServiceConfig = new RpcServiceConfig(userServiceImpl);
         System.out.println("对应接口全类名 = " + rpcServiceConfig.rpcServiceNames());
 
 //        RpcServer rpcServer = new SocketRpcServer();
 //        rpcServer.publishService(new RpcServiceConfig(new UserServiceImpl()));
 //        rpcServer.start();
         RpcServer rpcServer = new NettyRpcServer();
+        rpcServer.publishService(rpcServiceConfig);
         rpcServer.start();
 //        // jdk代理：被代理类实现接口，动态代理生成这个实现类对应的接口的实现类
 //        RpcClientProxy rpcClientProxy = new RpcClientProxy(new UserServiceImpl());
