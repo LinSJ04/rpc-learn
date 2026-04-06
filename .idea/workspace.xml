@@ -4,14 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] 管理父工程的curator版本以及rpc-core子工程的curator-netty依赖">
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/netty/client/NettyRpcClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/netty/client/NettyRpcClientHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/netty/server/NettyRpcServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/netty/server/NettyRpcServerHandler.java" afterDir="false" />
+    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] netty构建客户端和服务端">
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/compress/Compress.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/compress/impl/GzipCompress.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/dto/RpcMsg.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/enums/CompressType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/enums/MsgType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/enums/SerializeType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/enums/VersionType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/serialize/Serializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/serialize/impl/KryoSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/codec/NettyRpcDecoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/codec/NettyRpcEncoder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/constant/RpcConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/constant/RpcConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/netty/client/NettyRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/netty/client/NettyRpcClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/netty/server/NettyRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/server/NettyRpcServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/netty/server/NettyRpcServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/server/NettyRpcServerHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" afterDir="false" />
     </list>
@@ -24,6 +35,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="FxmlFile" />
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -69,7 +81,7 @@
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -197,6 +209,7 @@
       <workItem from="1752331889132" duration="52000" />
       <workItem from="1752373024804" duration="11604000" />
       <workItem from="1775264383137" duration="1877000" />
+      <workItem from="1775441665250" duration="1725000" />
     </task>
     <task id="LOCAL-00001" summary="确认实现目标: 如何在client的main方法中实现对server的服务的远程调用.">
       <option name="closed" value="true" />
@@ -358,7 +371,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775399711132</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="[feat] netty构建客户端和服务端">
+      <option name="closed" value="true" />
+      <created>1775402706125</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1775402706125</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -408,6 +429,7 @@
     <MESSAGE value="zookeeper实现服务注册和服务发现" />
     <MESSAGE value="[feat] netty 网络编程基础 server/client" />
     <MESSAGE value="[feat] 管理父工程的curator版本以及rpc-core子工程的curator-netty依赖" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feat] 管理父工程的curator版本以及rpc-core子工程的curator-netty依赖" />
+    <MESSAGE value="[feat] netty构建客户端和服务端" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feat] netty构建客户端和服务端" />
   </component>
 </project>

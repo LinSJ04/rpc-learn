@@ -1,13 +1,10 @@
 package com.work.rpc.server;
 
-import com.work.rpc.api.User;
 import com.work.rpc.api.UserService;
 import com.work.rpc.config.RpcServiceConfig;
-import com.work.rpc.netty.server.NettyRpcServer;
-import com.work.rpc.proxy.RpcClientProxy;
+import com.work.rpc.transmission.netty.server.NettyRpcServer;
 import com.work.rpc.server.service.UserServiceImpl;
 import com.work.rpc.transmission.RpcServer;
-import com.work.rpc.transmission.socket.server.SocketRpcServer;
 
 public class Main {
     public static void main(String[] args) {

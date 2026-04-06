@@ -12,4 +12,9 @@ public class RpcConstant {
 
     // netty
     public static final String NETTY_RPC_KEY = "RpcResp";
+    public static final byte[] PRC_MAGIC_CODE = new byte[]{(byte) 'l', (byte) 'r', (byte) 'p', (byte) 'c'};
+    // 请求头长度
+    public static final int REQ_HEAD_LEN = 16; // 16B
+    // 总长度 full len
+    public static final int REQ_MAX_LEN = 1024 * 1024; // 1MB
 }

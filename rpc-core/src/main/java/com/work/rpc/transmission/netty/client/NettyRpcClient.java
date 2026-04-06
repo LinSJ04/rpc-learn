@@ -1,9 +1,11 @@
-package com.work.rpc.netty.client;
+package com.work.rpc.transmission.netty.client;
 
 import com.work.rpc.constant.RpcConstant;
 import com.work.rpc.dto.RpcReq;
 import com.work.rpc.dto.RpcResp;
 import com.work.rpc.transmission.RpcClient;
+import com.work.rpc.transmission.codec.NettyRpcDecoder;
+import com.work.rpc.transmission.codec.NettyRpcEncoder;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -31,8 +33,8 @@ public class NettyRpcClient implements RpcClient {
                 .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel channel) throws Exception {
-                        channel.pipeline().addLast(new StringDecoder());
-                        channel.pipeline().addLast(new StringEncoder());
+                        channel.pipeline().addLast(new NettyRpcDecoder());
+                        channel.pipeline().addLast(new NettyRpcEncoder());
                         channel.pipeline().addLast(new NettyRpcClientHandler());
                     }
                 });

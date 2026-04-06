@@ -1,18 +1,9 @@
 package com.work.rpc.client;
 
-import com.work.rpc.api.User;
-import com.work.rpc.api.UserService;
-import com.work.rpc.client.utils.ProxyUtils;
 import com.work.rpc.dto.RpcReq;
 import com.work.rpc.dto.RpcResp;
-import com.work.rpc.netty.client.NettyRpcClient;
-import com.work.rpc.proxy.RpcClientProxy;
+import com.work.rpc.transmission.netty.client.NettyRpcClient;
 import com.work.rpc.transmission.RpcClient;
-import com.work.rpc.transmission.socket.client.SocketRpcClient;
-import com.work.rpc.util.ThreadPoolUtils;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
