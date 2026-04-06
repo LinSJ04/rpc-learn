@@ -16,5 +16,5 @@ public class RpcConstant {
     // 请求头长度
     public static final int REQ_HEAD_LEN = 16; // 16B
     // 总长度 full len
-    public static final int REQ_MAX_LEN = 1024 * 1024; // 1MB
+    public static final int REQ_MAX_LEN = 1024 * 1024 * 8; // 8MB
 }

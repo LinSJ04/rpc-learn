@@ -5,11 +5,13 @@ import com.work.rpc.enums.MsgType;
 import com.work.rpc.enums.SerializeType;
 import com.work.rpc.enums.VersionType;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
