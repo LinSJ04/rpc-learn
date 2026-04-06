@@ -12,6 +12,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 @Slf4j
 public class SocketRpcClient implements RpcClient {
@@ -25,7 +27,7 @@ public class SocketRpcClient implements RpcClient {
         this.serviceDiscovery = serviceDiscovery;
     }
 
-    public RpcResp<?> sendReq(RpcReq rpcReq) {
+    public Future<RpcResp<?>> sendReq(RpcReq rpcReq) {
         // 直接从注册中心获取到服务的地址
         InetSocketAddress inetSocketAddress = serviceDiscovery.lookupService(rpcReq);
         try (Socket socket = new Socket(inetSocketAddress.getAddress(), inetSocketAddress.getPort())) {
@@ -35,7 +37,7 @@ public class SocketRpcClient implements RpcClient {
             objectOutputStream.flush();
 
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-            return (RpcResp<?>) objectInputStream.readObject();
+            return CompletableFuture.completedFuture((RpcResp<?>) objectInputStream.readObject());
         } catch (Exception e) {
             log.error("发送rpc请求失败", e);
         }

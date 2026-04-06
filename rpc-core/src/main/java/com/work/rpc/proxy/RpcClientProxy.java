@@ -7,11 +7,13 @@ import com.work.rpc.dto.RpcResp;
 import com.work.rpc.enums.RpcRespStatus;
 import com.work.rpc.exception.RpcException;
 import com.work.rpc.transmission.RpcClient;
+import lombok.SneakyThrows;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Objects;
+import java.util.concurrent.Future;
 
 public class RpcClientProxy implements InvocationHandler { // jdk动态代理，需要实现InvocationHandler接口
     private final RpcClient rpcClient;
@@ -39,6 +41,7 @@ public class RpcClientProxy implements InvocationHandler { // jdk动态代理，
                 this); // InvocationHandler 实现类对象 就是当前对象
     }
 
+    @SneakyThrows
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
         // 调用对象的方法的时候，就会被拦截到，然后执行invoke方法
@@ -51,7 +54,8 @@ public class RpcClientProxy implements InvocationHandler { // jdk动态代理，
                 .version(config.getVersion()) // 获取版本号 传config的原因，需要根据config找到对应的实现类
                 .group(config.getGroup()) // 获取分组
                 .build();
-        RpcResp<?> rpcResp = rpcClient.sendReq(req); // 发送请求(传入RpcClient的原因)
+        Future<RpcResp<?>> future = rpcClient.sendReq(req);
+        RpcResp<?> rpcResp = future.get(); // 发送请求(传入RpcClient的原因)
         check(req, rpcResp); // 检查响应是否正确
         return rpcResp.getData(); // 返回响应数据
     }

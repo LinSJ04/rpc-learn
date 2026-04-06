@@ -64,5 +64,6 @@ public class Main {
         System.out.println("user = " + user);
 //        RpcResp<?> rpcResp = rpcClient.sendReq(RpcReq.builder().interfaceName("模拟请求数据").build());
 //        System.out.println("rpcResp = " + rpcResp);
+        // 如果之后不用代理，直接用rpcClient发送请求，就可以异步获取数据
     }
 }

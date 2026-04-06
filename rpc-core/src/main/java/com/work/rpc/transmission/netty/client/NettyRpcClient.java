@@ -28,6 +28,7 @@ import org.checkerframework.checker.units.qual.C;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -65,7 +66,7 @@ public class NettyRpcClient implements RpcClient {
     }
     @SneakyThrows
     @Override
-    public RpcResp<?> sendReq(RpcReq req) {
+    public Future<RpcResp<?>> sendReq(RpcReq req) {
         // CompletableFuture的作用：希望拿到这个请求的响应
         // 此时CompletableFuture还没有完成
         CompletableFuture<RpcResp<?>> cf = new CompletableFuture<>();
@@ -96,7 +97,7 @@ public class NettyRpcClient implements RpcClient {
         });
 
         // 还没有完成，阻塞等待
-        return cf.get();
+        return cf;
     }
 
     private Channel connect(InetSocketAddress address) {
