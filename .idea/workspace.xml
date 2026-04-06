@@ -4,13 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] 真正实现服务请求">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/codec/NettyRpcEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/codec/NettyRpcEncoder.java" afterDir="false" />
+    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] 心跳机制：客户端5s没写，发送heartbeat请求；服务端30s没读，关闭channel">
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/ChannelPool.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/UnprocessedRpcReq.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/server/NettyRpcServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/server/NettyRpcServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/server/NettyRpcServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/server/NettyRpcServerHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +74,7 @@
       <recent name="com.work.rpc.util" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.server2">
+  <component name="RunManager" selected="Application.com.work.rpc.client.Main">
     <configuration name="AppTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.work.rpc.AppTest" />
       <module name="test-server" />
@@ -195,7 +193,7 @@
       <workItem from="1752331889132" duration="52000" />
       <workItem from="1752373024804" duration="11604000" />
       <workItem from="1775264383137" duration="1877000" />
-      <workItem from="1775441665250" duration="14261000" />
+      <workItem from="1775441665250" duration="15862000" />
     </task>
     <task id="LOCAL-00001" summary="确认实现目标: 如何在client的main方法中实现对server的服务的远程调用.">
       <option name="closed" value="true" />
@@ -389,7 +387,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775472778259</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="[feat] 心跳机制：客户端5s没写，发送heartbeat请求；服务端30s没读，关闭channel">
+      <option name="closed" value="true" />
+      <created>1775489327509</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1775489327509</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -443,6 +449,7 @@
     <MESSAGE value="[feat] 自定义编码器" />
     <MESSAGE value="[feat] 自定义解码器，rpcMsg中的req/resp中的data仍为模拟数据" />
     <MESSAGE value="[feat] 真正实现服务请求" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feat] 真正实现服务请求" />
+    <MESSAGE value="[feat] 心跳机制：客户端5s没写，发送heartbeat请求；服务端30s没读，关闭channel" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feat] 心跳机制：客户端5s没写，发送heartbeat请求；服务端30s没读，关闭channel" />
   </component>
 </project>

@@ -29,9 +29,7 @@ public class NettyRpcClientHandler extends SimpleChannelInboundHandler<RpcMsg> {
         // 客户端接收到服务端数据
         log.debug("收到服务端数据： {}", rpcMsg);
         RpcResp<?> rpcResp = (RpcResp<?>) rpcMsg.getData();
-        AttributeKey<RpcResp<?>> key = AttributeKey.valueOf(RpcConstant.NETTY_RPC_KEY);
-        ctx.channel().attr(key).set(rpcResp);
-        ctx.channel().close();
+        UnprocessedRpcReq.complete(rpcResp);
     }
 
     @Override

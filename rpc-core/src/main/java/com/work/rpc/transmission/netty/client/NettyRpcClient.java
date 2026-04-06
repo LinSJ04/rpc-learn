@@ -24,18 +24,17 @@ import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.AttributeKey;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.checkerframework.checker.units.qual.C;
 
 import java.net.InetSocketAddress;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class NettyRpcClient implements RpcClient {
     private final ServiceDiscovery serviceDiscovery;
     private static final Bootstrap bootstrap;
-
     private static final int DEFAULT_CONNECT_TIMEOUT = 5000;
-
-
+    private final ChannelPool channelPool;
 
     public NettyRpcClient() {
         this(SingletonFactory.getInstance(ZkServiceDiscovery.class));
@@ -43,6 +42,7 @@ public class NettyRpcClient implements RpcClient {
 
     public NettyRpcClient(ServiceDiscovery serviceDiscovery) {
         this.serviceDiscovery = serviceDiscovery;
+        this.channelPool = SingletonFactory.getInstance(ChannelPool.class);
     }
 
     static {
@@ -65,13 +65,18 @@ public class NettyRpcClient implements RpcClient {
     @SneakyThrows
     @Override
     public RpcResp<?> sendReq(RpcReq req) {
+        // CompletableFuture的作用：希望拿到这个请求的响应
+        // 此时CompletableFuture还没有完成
+        CompletableFuture<RpcResp<?>> cf = new CompletableFuture<>();
+        UnprocessedRpcReq.put(req.getReqId(), cf);
+
         // 获取对应方法的address
         InetSocketAddress address = serviceDiscovery.lookupService(req);
         // 连接之后会等待
-        ChannelFuture channelFuture = bootstrap.connect(address).sync();
+        // 从channelpool获取channel
+        Channel channel = channelPool.get(address, () -> connect(address));
 
         log.info("netty rpc client连接到: {}", address);
-        Channel channel = channelFuture.channel();
         // 如果发送，关闭channel
 
         RpcMsg rpcMsg = RpcMsg.builder()
@@ -82,21 +87,23 @@ public class NettyRpcClient implements RpcClient {
                 .data(req)
                 .build();
 
-        channel.writeAndFlush(rpcMsg).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+        channel.writeAndFlush(rpcMsg).addListener((ChannelFutureListener) listener -> {
+            if (!listener.isSuccess()) { // listener成功是什么意思
+                listener.channel().close();
+                cf.completeExceptionally(listener.cause());
+            }
+        });
 
-        // 阻塞等待直到关闭
-        channel.closeFuture().sync();
-        // handler将数据设置到map中，之后再获取响应数据
+        // 还没有完成，阻塞等待
+        return cf.get();
+    }
 
-        // 获取服务端响应的数据
-        // channelcontext会绑定一个AttributeKey
-        // 不太理解这边AttributeKey是啥
-        AttributeKey<RpcResp<?>> key = AttributeKey.valueOf(RpcConstant.NETTY_RPC_KEY);
-
-        // 根据AttributeKey去AttributeMap中取对应的value
-        RpcResp<?> rpcResp = channel.attr(key).get();
-        System.out.println("rpcResp = " + rpcResp);
-
-        return rpcResp;
+    private Channel connect(InetSocketAddress address) {
+        try {
+            return bootstrap.connect(address).sync().channel();
+        } catch (InterruptedException e) {
+            log.error("连接到远程服务器失败，address: {}", address, e);
+            throw new RuntimeException(e);
+        }
     }
 }
