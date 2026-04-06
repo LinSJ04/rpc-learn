@@ -41,6 +41,7 @@ public class NettyRpcClientHandler extends SimpleChannelInboundHandler<RpcMsg> {
             super.userEventTriggered(ctx, evt);
             return;
         }
+        // 这个地方还没有reqId，经过encoder之后会有
         RpcMsg msg = RpcMsg.builder()
                 .version(VersionType.VERSION1)
                 .msgType(MsgType.HEARTBEAT_REQ)

@@ -20,6 +20,8 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.timeout.IdleStateHandler;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.TimeUnit;
+
 @Slf4j
 public class NettyRpcServer implements RpcServer {
     private final ServiceProvider serviceProvider;
@@ -56,7 +58,7 @@ public class NettyRpcServer implements RpcServer {
                         @Override
                         protected void initChannel(NioSocketChannel channel) throws Exception {
                             // server 30s内没有读
-                            channel.pipeline().addLast(new IdleStateHandler(30, 0, 0));
+                            channel.pipeline().addLast(new IdleStateHandler(30, 0, 0, TimeUnit.SECONDS));
                             channel.pipeline().addLast(new NettyRpcDecoder());
                             channel.pipeline().addLast(new NettyRpcEncoder());
                             channel.pipeline().addLast(new NettyRpcServerHandler(serviceProvider));

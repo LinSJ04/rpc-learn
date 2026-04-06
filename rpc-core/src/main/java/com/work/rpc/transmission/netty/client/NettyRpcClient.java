@@ -28,6 +28,7 @@ import org.checkerframework.checker.units.qual.C;
 
 import java.net.InetSocketAddress;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class NettyRpcClient implements RpcClient {
@@ -55,7 +56,7 @@ public class NettyRpcClient implements RpcClient {
                     @Override
                     protected void initChannel(NioSocketChannel channel) throws Exception {
                         // 状态监控，客户端5s没有给服务端发数据，就会触发userevent
-                        channel.pipeline().addLast(new IdleStateHandler(0, 5, 0));
+                        channel.pipeline().addLast(new IdleStateHandler(0, 5, 0, TimeUnit.SECONDS));
                         channel.pipeline().addLast(new NettyRpcDecoder());
                         channel.pipeline().addLast(new NettyRpcEncoder());
                         channel.pipeline().addLast(new NettyRpcClientHandler());
