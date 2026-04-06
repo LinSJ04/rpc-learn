@@ -20,6 +20,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import io.netty.handler.timeout.IdleStateHandler;
 import io.netty.util.AttributeKey;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +35,7 @@ public class NettyRpcClient implements RpcClient {
 
     private static final int DEFAULT_CONNECT_TIMEOUT = 5000;
 
-    // CAS自旋实现线程安全
-    private static final AtomicInteger ID_GEN = new AtomicInteger(0);
+
 
     public NettyRpcClient() {
         this(SingletonFactory.getInstance(ZkServiceDiscovery.class));
@@ -54,6 +54,8 @@ public class NettyRpcClient implements RpcClient {
                 .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
                     protected void initChannel(NioSocketChannel channel) throws Exception {
+                        // 状态监控，客户端5s没有给服务端发数据，就会触发userevent
+                        channel.pipeline().addLast(new IdleStateHandler(0, 5, 0));
                         channel.pipeline().addLast(new NettyRpcDecoder());
                         channel.pipeline().addLast(new NettyRpcEncoder());
                         channel.pipeline().addLast(new NettyRpcClientHandler());
@@ -73,7 +75,6 @@ public class NettyRpcClient implements RpcClient {
         // 如果发送，关闭channel
 
         RpcMsg rpcMsg = RpcMsg.builder()
-                .reqId(ID_GEN.incrementAndGet())
                 .version(VersionType.VERSION1)
                 .serializeType(SerializeType.KRYO)
                 .compressType(CompressType.GZIP)

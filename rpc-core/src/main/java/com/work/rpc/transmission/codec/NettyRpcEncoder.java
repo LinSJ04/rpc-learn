@@ -12,8 +12,11 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class NettyRpcEncoder extends MessageToByteEncoder<RpcMsg> {
+    // CAS自旋实现线程安全
+    private static final AtomicInteger ID_GEN = new AtomicInteger(0);
 
     @Override
     protected void encode(ChannelHandlerContext ctx, RpcMsg rpcMsg, ByteBuf byteBuf) throws Exception {
@@ -35,7 +38,7 @@ public class NettyRpcEncoder extends MessageToByteEncoder<RpcMsg> {
         // 压缩类型 1字节
         byteBuf.writeByte(rpcMsg.getCompressType().getCode());
         // 请求ID 4字节
-        byteBuf.writeInt(rpcMsg.getReqId());
+        byteBuf.writeInt(ID_GEN.incrementAndGet());
 
         // 请求头包括魔法数（4）、版本号（1）、总长度（4）、消息类型（1）、序列化类型（1）、压缩类型（1）、请求ID（4） 一共16字节
         int msgLen = RpcConstant.REQ_HEAD_LEN;
