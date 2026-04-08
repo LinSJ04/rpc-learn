@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] 心跳机制：客户端5s没写，发送heartbeat请求；服务端30s没读，关闭channel">
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/ChannelPool.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/UnprocessedRpcReq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClientHandler.java" afterDir="false" />
+    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] sendReq方法返回类型用Future包装，将同步/异步交给上层/代理控制">
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/annotation/Retry.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +21,7 @@
         <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="AnnotationType" />
       </list>
     </option>
   </component>
@@ -193,7 +193,7 @@
       <workItem from="1752331889132" duration="52000" />
       <workItem from="1752373024804" duration="11604000" />
       <workItem from="1775264383137" duration="1877000" />
-      <workItem from="1775441665250" duration="15862000" />
+      <workItem from="1775441665250" duration="18893000" />
     </task>
     <task id="LOCAL-00001" summary="确认实现目标: 如何在client的main方法中实现对server的服务的远程调用.">
       <option name="closed" value="true" />
@@ -395,7 +395,31 @@
       <option name="project" value="LOCAL" />
       <updated>1775489327509</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="[feat] 客户端channel复用">
+      <option name="closed" value="true" />
+      <created>1775490584920</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1775490584920</updated>
+    </task>
+    <task id="LOCAL-00027" summary="[fix] 服务端发送响应数据后，改为只有listener失败才关闭channel">
+      <option name="closed" value="true" />
+      <created>1775491042684</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1775491042684</updated>
+    </task>
+    <task id="LOCAL-00028" summary="[feat] sendReq方法返回类型用Future包装，将同步/异步交给上层/代理控制">
+      <option name="closed" value="true" />
+      <created>1775491559320</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1775491559320</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -425,9 +449,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="确认实现目标: 如何在client的main方法中实现对server的服务的远程调用." />
-    <MESSAGE value="定义通用的请求和响应对象" />
-    <MESSAGE value="发送请求和启动服务的简易实现(尚未传输)." />
     <MESSAGE value="基于socket实现客户端发送请求" />
     <MESSAGE value="基于socket实现服务端监听并处理请求" />
     <MESSAGE value="基于socket实现客户端发送请求并获取了响应(模拟数据)." />
@@ -450,6 +471,9 @@
     <MESSAGE value="[feat] 自定义解码器，rpcMsg中的req/resp中的data仍为模拟数据" />
     <MESSAGE value="[feat] 真正实现服务请求" />
     <MESSAGE value="[feat] 心跳机制：客户端5s没写，发送heartbeat请求；服务端30s没读，关闭channel" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feat] 心跳机制：客户端5s没写，发送heartbeat请求；服务端30s没读，关闭channel" />
+    <MESSAGE value="[feat] 客户端channel复用" />
+    <MESSAGE value="[fix] 服务端发送响应数据后，改为只有listener失败才关闭channel" />
+    <MESSAGE value="[feat] sendReq方法返回类型用Future包装，将同步/异步交给上层/代理控制" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feat] sendReq方法返回类型用Future包装，将同步/异步交给上层/代理控制" />
   </component>
 </project>
