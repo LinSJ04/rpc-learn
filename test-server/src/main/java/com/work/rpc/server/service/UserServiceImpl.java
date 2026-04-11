@@ -1,11 +1,11 @@
 package com.work.rpc.server.service;
 
-import cn.hutool.core.util.IdUtil;
+import com.work.rpc.annotation.Limit;
 import com.work.rpc.api.User;
 import com.work.rpc.api.UserService;
 
 public class UserServiceImpl implements UserService {
-
+    @Limit(permitsPerSecond = 5, timeout = 0)
     public User getUser(Long id) {
         return User.builder()
                 .id(++id)

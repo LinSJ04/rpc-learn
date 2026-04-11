@@ -10,6 +10,7 @@ import com.work.rpc.transmission.RpcClient;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
@@ -50,7 +51,6 @@ public class Main {
 //        }
 //        User user = (User)rpcClient.sendReq(req).getData();
 //        System.out.println("user = " + user);
-        UserService userService = ProxyUtils.getProxy(UserService.class);
 //        ExecutorService executorService = Executors.newFixedThreadPool(10);
 //        for (int i = 0; i < 10; i++) {
 //            executorService.submit(() -> {
@@ -60,10 +60,26 @@ public class Main {
 //        }
 //        RpcClient rpcClient = new NettyRpcClient();
         // 目前返回为null
-        User user = userService.getUser(1L);
-        System.out.println("user = " + user);
+
 //        RpcResp<?> rpcResp = rpcClient.sendReq(RpcReq.builder().interfaceName("模拟请求数据").build());
 //        System.out.println("rpcResp = " + rpcResp);
         // 如果之后不用代理，直接用rpcClient发送请求，就可以异步获取数据
+        UserService userService = ProxyUtils.getProxy(UserService.class);
+        User user = userService.getUser(1L);
+        System.out.println("user = " + user);
+        // 先等1s，等令牌创建好
+        try {
+            TimeUnit.SECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        ExecutorService executorService = Executors.newFixedThreadPool(20);
+        for (int i = 0; i < 20; i++) {
+            executorService.execute(() -> {
+                User newUser = userService.getUser(1L);
+                System.out.println("newUser = " + newUser);
+            });
+        }
     }
 }

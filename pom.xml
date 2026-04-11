@@ -30,6 +30,7 @@
     <curator.version>4.2.0</curator.version>
     <kryo.version>4.0.2</kryo.version>
     <retry.version>2.0.0</retry.version>
+    <guava.version>30.1-jre</guava.version>
   </properties>
 
   <dependencies>
@@ -98,6 +99,11 @@
         <groupId>com.github.rholder</groupId>
         <artifactId>guava-retrying</artifactId>
         <version>${retry.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
