@@ -1,6 +1,11 @@
 package com.work.rpc.proxy;
 
 import cn.hutool.core.util.IdUtil;
+import com.github.rholder.retry.Retryer;
+import com.github.rholder.retry.RetryerBuilder;
+import com.github.rholder.retry.StopStrategies;
+import com.github.rholder.retry.WaitStrategies;
+import com.work.rpc.annotation.Retry;
 import com.work.rpc.config.RpcServiceConfig;
 import com.work.rpc.dto.RpcReq;
 import com.work.rpc.dto.RpcResp;
@@ -14,6 +19,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Objects;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class RpcClientProxy implements InvocationHandler { // jdk动态代理，需要实现InvocationHandler接口
     private final RpcClient rpcClient;
@@ -54,6 +60,22 @@ public class RpcClientProxy implements InvocationHandler { // jdk动态代理，
                 .version(config.getVersion()) // 获取版本号 传config的原因，需要根据config找到对应的实现类
                 .group(config.getGroup()) // 获取分组
                 .build();
+        Retry retry = method.getAnnotation(Retry.class);
+        if (Objects.isNull(retry)) {
+            return sendReq(req);
+        }
+        Retryer<Object> retryer = RetryerBuilder.newBuilder()
+                .retryIfExceptionOfType(retry.value())
+                .withStopStrategy(StopStrategies.stopAfterAttempt(retry.maxAttempts())) // 停止策略
+                .withWaitStrategy(WaitStrategies.fixedWait(retry.delay(), TimeUnit.MILLISECONDS)) // 等待策略
+                .build();
+
+        // 如果发生异常就会按照上述方法重试
+        return retryer.call(() -> sendReq(req));
+    }
+
+    @SneakyThrows
+    private Object sendReq(RpcReq req) {
         Future<RpcResp<?>> future = rpcClient.sendReq(req);
         RpcResp<?> rpcResp = future.get(); // 发送请求(传入RpcClient的原因)
         check(req, rpcResp); // 检查响应是否正确
