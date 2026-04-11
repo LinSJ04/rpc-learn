@@ -8,6 +8,7 @@ import com.work.rpc.dto.RpcResp;
 import com.work.rpc.transmission.netty.client.NettyRpcClient;
 import com.work.rpc.transmission.RpcClient;
 
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -65,21 +66,33 @@ public class Main {
 //        System.out.println("rpcResp = " + rpcResp);
         // 如果之后不用代理，直接用rpcClient发送请求，就可以异步获取数据
         UserService userService = ProxyUtils.getProxy(UserService.class);
-        User user = userService.getUser(1L);
-        System.out.println("user = " + user);
-        // 先等1s，等令牌创建好
-        try {
-            TimeUnit.SECONDS.sleep(1);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-
+//        User user = userService.getUser(1L);
+//        System.out.println("user = " + user);
+//        // 先等1s，等令牌创建好
+//        try {
+//            TimeUnit.SECONDS.sleep(1);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+        Scanner scanner = new Scanner(System.in);
         ExecutorService executorService = Executors.newFixedThreadPool(20);
-        for (int i = 0; i < 20; i++) {
-            executorService.execute(() -> {
-                User newUser = userService.getUser(1L);
-                System.out.println("newUser = " + newUser);
-            });
+
+        while (true) {
+            System.out.println("请输入请求次数：");
+            int n = scanner.nextInt();
+            System.out.println("请输入请求id：");
+            long id = scanner.nextLong();
+
+            for (int i = 0; i < n; i++) {
+                executorService.execute(() -> {
+                    try {
+                        User newUser = userService.getUser(id);
+                        System.out.println("newUser = " + newUser);
+                    } catch (Exception e) {
+                        System.out.println("请求失败：" + e.getMessage());
+                    }
+                });
+            }
         }
     }
 }

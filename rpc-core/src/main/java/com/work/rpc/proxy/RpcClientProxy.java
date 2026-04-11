@@ -5,7 +5,10 @@ import com.github.rholder.retry.Retryer;
 import com.github.rholder.retry.RetryerBuilder;
 import com.github.rholder.retry.StopStrategies;
 import com.github.rholder.retry.WaitStrategies;
+import com.work.rpc.annotation.Breaker;
 import com.work.rpc.annotation.Retry;
+import com.work.rpc.breaker.CircuitBreaker;
+import com.work.rpc.breaker.CircuitBreakerManager;
 import com.work.rpc.config.RpcServiceConfig;
 import com.work.rpc.dto.RpcReq;
 import com.work.rpc.dto.RpcResp;
@@ -48,6 +51,21 @@ public class RpcClientProxy implements InvocationHandler { // jdk动态代理，
     }
 
     @SneakyThrows
+    private Object sendReqWithRetry(RpcReq rpcReq, Method method) {
+        Retry retry = method.getAnnotation(Retry.class);
+        if (Objects.isNull(retry)) {
+            return sendReq(rpcReq);
+        }
+        Retryer<Object> retryer = RetryerBuilder.newBuilder()
+                .retryIfExceptionOfType(retry.value())
+                .withStopStrategy(StopStrategies.stopAfterAttempt(retry.maxAttempts())) // 停止策略
+                .withWaitStrategy(WaitStrategies.fixedWait(retry.delay(), TimeUnit.MILLISECONDS)) // 等待策略
+                .build();
+
+        // 如果发生异常就会按照上述方法重试
+        return retryer.call(() -> sendReq(rpcReq));
+    }
+
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) {
         // 调用对象的方法的时候，就会被拦截到，然后执行invoke方法
@@ -60,18 +78,22 @@ public class RpcClientProxy implements InvocationHandler { // jdk动态代理，
                 .version(config.getVersion()) // 获取版本号 传config的原因，需要根据config找到对应的实现类
                 .group(config.getGroup()) // 获取分组
                 .build();
-        Retry retry = method.getAnnotation(Retry.class);
-        if (Objects.isNull(retry)) {
-            return sendReq(req);
+        Breaker breaker = method.getAnnotation(Breaker.class);
+        if (Objects.isNull(breaker)) {
+            return sendReqWithRetry(req, method);
         }
-        Retryer<Object> retryer = RetryerBuilder.newBuilder()
-                .retryIfExceptionOfType(retry.value())
-                .withStopStrategy(StopStrategies.stopAfterAttempt(retry.maxAttempts())) // 停止策略
-                .withWaitStrategy(WaitStrategies.fixedWait(retry.delay(), TimeUnit.MILLISECONDS)) // 等待策略
-                .build();
-
-        // 如果发生异常就会按照上述方法重试
-        return retryer.call(() -> sendReq(req));
+        CircuitBreaker circuitBreaker = CircuitBreakerManager.get(req.rpcServiceName(), breaker);
+        if (!circuitBreaker.canSendReq()) {
+            throw new RpcException("熔断器已打开，无法发送请求");
+        }
+        try {
+            Object o = sendReqWithRetry(req, method);
+            circuitBreaker.success();
+            return o;
+        } catch (Exception e) {
+            circuitBreaker.fail();
+            throw e;
+        }
     }
 
     @SneakyThrows
