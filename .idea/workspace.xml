@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] 令牌桶限流">
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/annotation/Breaker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/breaker/CircuitBreaker.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/breaker/CircuitBreakerManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/proxy/RpcClientProxy.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/proxy/RpcClientProxy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-api/src/main/java/com/work/rpc/api/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-api/src/main/java/com/work/rpc/api/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/service/UserServiceImpl.java" afterDir="false" />
+    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] 熔断">
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/serialize/impl/HessianSerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/serialize/impl/ProtoStuffSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/serialize/impl/KryoSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/serialize/impl/KryoSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +78,7 @@
       <recent name="com.work.rpc.util" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.com.work.rpc.client.Main">
+  <component name="RunManager" selected="Application.server2">
     <configuration name="AppTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.work.rpc.AppTest" />
       <module name="test-server" />
@@ -200,7 +200,8 @@
       <workItem from="1775441665250" duration="18931000" />
       <workItem from="1775911915064" duration="1819000" />
       <workItem from="1775913844040" duration="2375000" />
-      <workItem from="1775916244894" duration="3228000" />
+      <workItem from="1775916244894" duration="4128000" />
+      <workItem from="1775922119469" duration="912000" />
     </task>
     <task id="LOCAL-00001" summary="确认实现目标: 如何在client的main方法中实现对server的服务的远程调用.">
       <option name="closed" value="true" />
@@ -458,7 +459,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775916919648</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="[feat] 熔断">
+      <option name="closed" value="true" />
+      <created>1775921833450</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1775921833450</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -488,7 +497,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="实现基于内存的服务发布与服务获取" />
     <MESSAGE value="实现真实的服务调用(基于内存)." />
     <MESSAGE value="将对请求的处理放在一个单独的类RpcReqHandler中" />
     <MESSAGE value="线程池工具以及jvm运行结束时关闭线程池" />
@@ -513,6 +521,7 @@
     <MESSAGE value="[feat] 构造除0异常，验证重试机制" />
     <MESSAGE value="[feat] 删除除0异常代码" />
     <MESSAGE value="[feat] 令牌桶限流" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feat] 令牌桶限流" />
+    <MESSAGE value="[feat] 熔断" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feat] 熔断" />
   </component>
 </project>

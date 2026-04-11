@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
+// 针对java对象的序列化
 @Slf4j
 public class KryoSerializer implements Serializer {
     // Kryo本身不是线程安全的
