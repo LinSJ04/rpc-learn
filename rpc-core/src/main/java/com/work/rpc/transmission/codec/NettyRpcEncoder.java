@@ -4,9 +4,12 @@ import com.work.rpc.compress.Compress;
 import com.work.rpc.compress.impl.GzipCompress;
 import com.work.rpc.constant.RpcConstant;
 import com.work.rpc.dto.RpcMsg;
+import com.work.rpc.enums.SerializeType;
 import com.work.rpc.factory.SingletonFactory;
 import com.work.rpc.serialize.Serializer;
 import com.work.rpc.serialize.impl.KryoSerializer;
+import com.work.rpc.spi.CustomLoader;
+import com.work.rpc.util.ConfigUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
@@ -44,7 +47,7 @@ public class NettyRpcEncoder extends MessageToByteEncoder<RpcMsg> {
         int msgLen = RpcConstant.REQ_HEAD_LEN;
         // 心跳数据不需要带请求体
         if (!rpcMsg.getMsgType().isHeartbeat()
-            && !Objects.isNull(rpcMsg.getData())) {
+                && !Objects.isNull(rpcMsg.getData())) {
             byte[] bytes = data2Bytes(rpcMsg);
             byteBuf.writeBytes(bytes);
             msgLen += bytes.length;
@@ -65,7 +68,8 @@ public class NettyRpcEncoder extends MessageToByteEncoder<RpcMsg> {
 //        SerializeType serializeType = rpcMsg.getSerializeType();
 //        CompressType compressType = rpcMsg.getCompressType();
 
-        Serializer serializer = SingletonFactory.getInstance(KryoSerializer.class);
+        String desc = rpcMsg.getSerializeType().getDesc();
+        Serializer serializer = CustomLoader.getLoader(Serializer.class).get(desc);
         byte[] data = serializer.serialize(rpcMsg.getData());
 
         Compress compress = SingletonFactory.getInstance(GzipCompress.class);

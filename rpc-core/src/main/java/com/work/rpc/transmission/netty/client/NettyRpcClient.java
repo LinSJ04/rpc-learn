@@ -11,9 +11,11 @@ import com.work.rpc.enums.VersionType;
 import com.work.rpc.factory.SingletonFactory;
 import com.work.rpc.registry.ServiceDiscovery;
 import com.work.rpc.registry.impl.ZkServiceDiscovery;
+import com.work.rpc.spi.CustomLoader;
 import com.work.rpc.transmission.RpcClient;
 import com.work.rpc.transmission.codec.NettyRpcDecoder;
 import com.work.rpc.transmission.codec.NettyRpcEncoder;
+import com.work.rpc.util.ConfigUtils;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -79,9 +81,11 @@ public class NettyRpcClient implements RpcClient {
         log.info("netty rpc client连接到: {}", address);
         // 如果发送，关闭channel
 
+        String serializer = ConfigUtils.getRpcConfig().getSerializer();
+
         RpcMsg rpcMsg = RpcMsg.builder()
                 .version(VersionType.VERSION1)
-                .serializeType(SerializeType.KRYO)
+                .serializeType(SerializeType.from(serializer)) // 用户自定义序列化器
                 .compressType(CompressType.GZIP)
                 .msgType(MsgType.RPC_REQ)
                 .data(req)

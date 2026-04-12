@@ -5,12 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] Hessian序列化、ProtoStuff序列化">
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/impl/ConsistentHashLoadBalance.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/impl/RoundLoadBalance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/config/RpcConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/spi/CustomLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/spi/Holder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/util/ConfigUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/resources/META-INF/work-rpc/com.work.rpc.balance.LoadBalance" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/resources/META-INF/work-rpc/com.work.rpc.serialize.Serializer" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-api/src/main/java/com/work/rpc/api/MySerializer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-api/src/main/resources/META-INF/work-rpc/com.work.rpc.serialize.Serializer" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-client/src/main/resources/rpc-config.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-server/src/main/resources/META-INF/work-rpc/com.work.rpc.serialize.Serializer" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test-server/src/main/resources/rpc-config.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/LoadBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/LoadBalance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/RandomLoadBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/impl/RandomLoadBalance.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/registry/impl/ZkServiceDiscovery.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/registry/impl/ZkServiceDiscovery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/enums/SerializeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/enums/SerializeType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/codec/NettyRpcDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/codec/NettyRpcDecoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/codec/NettyRpcEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/codec/NettyRpcEncoder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/server/NettyRpcServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/server/NettyRpcServerHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,40 +58,48 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.AppTest.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.com.work.rpc.client.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.server1.executor&quot;: &quot;Run&quot;,
-    &quot;Application.server2.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;1.8.0_101&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/javaProject/rpc-learn&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.AppTest.executor": "Run",
+    "Application.Main.executor": "Run",
+    "Application.com.work.rpc.client.Main.executor": "Run",
+    "Application.server1.executor": "Run",
+    "Application.server2.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "jdk.selected.JAVA_MODULE": "1.8.0_101",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/rpc-learn/test-api/src/main",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15429688",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\rpc-learn\rpc-core\src\main\java\com\work\rpc\spi" />
+      <recent name="D:\rpc-learn\rpc-core\src\main" />
+      <recent name="D:\rpc-learn\test-client\src\main" />
+      <recent name="D:\rpc-learn\test-server\src\main" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.work.rpc.util" />
+      <recent name="com.work.rpc.config" />
+      <recent name="com.work.rpc.api" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.server2">
+  <component name="RunManager" selected="Application.com.work.rpc.client.Main">
     <configuration name="AppTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.work.rpc.AppTest" />
       <module name="test-server" />
@@ -202,6 +223,8 @@
       <workItem from="1775913844040" duration="2375000" />
       <workItem from="1775916244894" duration="4128000" />
       <workItem from="1775922119469" duration="2795000" />
+      <workItem from="1776008971382" duration="198000" />
+      <workItem from="1776009185303" duration="419000" />
     </task>
     <task id="LOCAL-00001" summary="确认实现目标: 如何在client的main方法中实现对server的服务的远程调用.">
       <option name="closed" value="true" />
@@ -531,5 +554,9 @@
     <MESSAGE value="[feat] 熔断" />
     <MESSAGE value="[feat] Hessian序列化、ProtoStuff序列化" />
     <option name="LAST_COMMIT_MESSAGE" value="[feat] Hessian序列化、ProtoStuff序列化" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

@@ -9,6 +9,7 @@ import com.work.rpc.enums.SerializeType;
 import com.work.rpc.enums.VersionType;
 import com.work.rpc.handler.RpcReqHandler;
 import com.work.rpc.provider.ServiceProvider;
+import com.work.rpc.util.ConfigUtils;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -44,18 +45,20 @@ public class NettyRpcServerHandler extends SimpleChannelInboundHandler<RpcMsg> {
             data = handleRpcReq(rpcReq);
         }
 
+        String serializer = ConfigUtils.getRpcConfig().getSerializer();
+
         RpcMsg msg = RpcMsg.builder()
-                        .reqId(rpcMsg.getReqId())
-                        .version(VersionType.VERSION1)
-                        .msgType(msgType)
-                        .serializeType(SerializeType.KRYO)
-                        .compressType(CompressType.GZIP)
-                        .data(data)
-                        .build();
+                .reqId(rpcMsg.getReqId())
+                .version(VersionType.VERSION1)
+                .msgType(msgType)
+                .serializeType(SerializeType.from(serializer))
+                .compressType(CompressType.GZIP)
+                .data(data)
+                .build();
         // 失败之后关闭
         ctx.channel()
-            .writeAndFlush(msg)
-            .addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+                .writeAndFlush(msg)
+                .addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
     }
 
     @Override

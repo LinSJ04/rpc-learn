@@ -1,0 +1,3 @@
+random=com.work.rpc.loadbalance.impl.RandomLoadBalance
+consistentHash=com.work.rpc.loadbalance.impl.ConsistentHashLoadBalance
+round=com.work.rpc.loadbalance.impl.RoundLoadBalance

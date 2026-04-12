@@ -38,12 +38,12 @@ public class Main {
 //        UserService userService = rpcClientProxy.getProxy();
 //        User user = userService.getUser(1L);
 //        System.out.println("user = " + user);
-//        UserService userServiceImpl = new UserServiceImpl();
-//        RpcServiceConfig rpcServiceConfig = new RpcServiceConfig(userServiceImpl);
-//        System.out.println("对应接口全类名 = " + rpcServiceConfig.rpcServiceNames());
-//        RpcServer rpcServer = new NettyRpcServer();
-//        rpcServer.publishService(rpcServiceConfig);
-//        rpcServer.start();
+        UserService userServiceImpl = new UserServiceImpl();
+        RpcServiceConfig rpcServiceConfig = new RpcServiceConfig(userServiceImpl);
+        System.out.println("对应接口全类名 = " + rpcServiceConfig.rpcServiceNames());
+        RpcServer rpcServer = new NettyRpcServer();
+        rpcServer.publishService(rpcServiceConfig);
+        rpcServer.start();
 
 //        ProtoStuffSerializer serializer = SingletonFactory.getInstance(ProtoStuffSerializer.class);
 //
@@ -57,15 +57,15 @@ public class Main {
 //        RpcReq req = serializer.deserialize(data, RpcReq.class);
 //        System.out.println("req = " + req);
 
-        ConsistentHashLoadBalance loadBalance = SingletonFactory.getInstance(ConsistentHashLoadBalance.class);
-        RpcReq rpcReq = RpcReq.builder()
-                .interfaceName("test")
-                .group("group")
-                .version("version")
-                .build();
-        List<String> list = ListUtil.of("ip1:port1", "ip2:port2", "ip3:port3");
-        for (int i = 0; i < 10; i++) {
-            System.out.println("select = " + loadBalance.select(list, rpcReq));
-        }
+//        ConsistentHashLoadBalance loadBalance = SingletonFactory.getInstance(ConsistentHashLoadBalance.class);
+//        RpcReq rpcReq = RpcReq.builder()
+//                .interfaceName("test")
+//                .group("group")
+//                .version("version")
+//                .build();
+//        List<String> list = ListUtil.of("ip1:port1", "ip2:port2", "ip3:port3");
+//        for (int i = 0; i < 10; i++) {
+//            System.out.println("select = " + loadBalance.select(list, rpcReq));
+//        }
     }
 }

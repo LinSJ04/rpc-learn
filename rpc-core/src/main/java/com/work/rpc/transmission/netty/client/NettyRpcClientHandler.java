@@ -7,6 +7,7 @@ import com.work.rpc.enums.CompressType;
 import com.work.rpc.enums.MsgType;
 import com.work.rpc.enums.SerializeType;
 import com.work.rpc.enums.VersionType;
+import com.work.rpc.util.ConfigUtils;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -41,18 +42,21 @@ public class NettyRpcClientHandler extends SimpleChannelInboundHandler<RpcMsg> {
             super.userEventTriggered(ctx, evt);
             return;
         }
+
+        String serializer = ConfigUtils.getRpcConfig().getSerializer();
+
         // 这个地方还没有reqId，经过encoder之后会有
         RpcMsg msg = RpcMsg.builder()
                 .version(VersionType.VERSION1)
                 .msgType(MsgType.HEARTBEAT_REQ)
-                .serializeType(SerializeType.KRYO)
+                .serializeType(SerializeType.from(serializer))
                 .compressType(CompressType.GZIP)
                 .build();
 
         log.info("客户端发送心跳, {}", msg);
         // 失败关闭channel
         ctx.writeAndFlush(msg)
-            .addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+                .addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
     }
 
     @Override

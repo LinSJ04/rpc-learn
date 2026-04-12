@@ -11,7 +11,9 @@ import com.work.rpc.enums.SerializeType;
 import com.work.rpc.enums.VersionType;
 import com.work.rpc.exception.RpcException;
 import com.work.rpc.factory.SingletonFactory;
+import com.work.rpc.serialize.Serializer;
 import com.work.rpc.serialize.impl.KryoSerializer;
+import com.work.rpc.spi.CustomLoader;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
@@ -59,7 +61,7 @@ public class NettyRpcDecoder extends LengthFieldBasedFrameDecoder {
 
         int reqId = byteBuf.readInt();
 
-        Object data = readData(byteBuf, msgFullLen - RpcConstant.REQ_HEAD_LEN, msgType);
+        Object data = readData(byteBuf, msgFullLen - RpcConstant.REQ_HEAD_LEN, msgType, serializeType);
 
         // 构造RpcMsg
         // 后面为什么要用RpcMsg
@@ -74,15 +76,15 @@ public class NettyRpcDecoder extends LengthFieldBasedFrameDecoder {
                 .build();
     }
 
-    private Object readData(ByteBuf byteBuf, int dataLen, MsgType msgType) {
+    private Object readData(ByteBuf byteBuf, int dataLen, MsgType msgType, SerializeType serializeType) {
         if (msgType.isReq()) {
-            return readData(byteBuf, dataLen, RpcReq.class);
+            return readData(byteBuf, dataLen, RpcReq.class, serializeType);
         } else {
-            return readData(byteBuf, dataLen, RpcResp.class);
+            return readData(byteBuf, dataLen, RpcResp.class, serializeType);
         }
     }
 
-    private <T> T readData(ByteBuf byteBuf, int dataLen, Class<T> clazz) {
+    private <T> T readData(ByteBuf byteBuf, int dataLen, Class<T> clazz, SerializeType serializeType) {
         if (dataLen <= 0) {
             return null;
         }
@@ -92,7 +94,7 @@ public class NettyRpcDecoder extends LengthFieldBasedFrameDecoder {
         GzipCompress compress = SingletonFactory.getInstance(GzipCompress.class);
         data = compress.decompress(data);
 
-        KryoSerializer serializer = SingletonFactory.getInstance(KryoSerializer.class);
+        Serializer serializer = CustomLoader.getLoader(Serializer.class).get(serializeType.getDesc());
         return serializer.deserialize(data, clazz);
     }
 }
