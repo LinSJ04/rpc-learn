@@ -5,7 +5,7 @@ import com.work.rpc.constant.RpcConstant;
 import com.work.rpc.dto.RpcReq;
 import com.work.rpc.factory.SingletonFactory;
 import com.work.rpc.loadbalance.LoadBalance;
-import com.work.rpc.loadbalance.RandomLoadBalance;
+import com.work.rpc.loadbalance.impl.RandomLoadBalance;
 import com.work.rpc.registry.ServiceDiscovery;
 import com.work.rpc.registry.zk.ZkClient;
 import com.work.rpc.util.IPUtils;
@@ -36,7 +36,7 @@ public class ZkServiceDiscovery implements ServiceDiscovery {
                 + StrUtil.SLASH
                 + serviceName;
         List<String> children = zkClient.getChildrenNodes(path);
-        String address = loadBalance.select(children);
+        String address = loadBalance.select(children, rpcReq);
         return IPUtils.toInetSocketAddress(address);
     }
 }

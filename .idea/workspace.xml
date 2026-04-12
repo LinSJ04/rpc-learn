@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] 熔断">
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/serialize/impl/HessianSerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/serialize/impl/ProtoStuffSerializer.java" afterDir="false" />
+    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] Hessian序列化、ProtoStuff序列化">
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/impl/ConsistentHashLoadBalance.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/impl/RoundLoadBalance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/serialize/impl/KryoSerializer.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/serialize/impl/KryoSerializer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/LoadBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/LoadBalance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/RandomLoadBalance.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/loadbalance/impl/RandomLoadBalance.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/registry/impl/ZkServiceDiscovery.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/registry/impl/ZkServiceDiscovery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -201,7 +201,7 @@
       <workItem from="1775911915064" duration="1819000" />
       <workItem from="1775913844040" duration="2375000" />
       <workItem from="1775916244894" duration="4128000" />
-      <workItem from="1775922119469" duration="912000" />
+      <workItem from="1775922119469" duration="2795000" />
     </task>
     <task id="LOCAL-00001" summary="确认实现目标: 如何在client的main方法中实现对server的服务的远程调用.">
       <option name="closed" value="true" />
@@ -467,7 +467,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775921833450</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="[feat] Hessian序列化、ProtoStuff序列化">
+      <option name="closed" value="true" />
+      <created>1775923145606</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1775923145606</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -497,7 +505,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="实现真实的服务调用(基于内存)." />
     <MESSAGE value="将对请求的处理放在一个单独的类RpcReqHandler中" />
     <MESSAGE value="线程池工具以及jvm运行结束时关闭线程池" />
     <MESSAGE value="fix" />
@@ -522,6 +529,7 @@
     <MESSAGE value="[feat] 删除除0异常代码" />
     <MESSAGE value="[feat] 令牌桶限流" />
     <MESSAGE value="[feat] 熔断" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feat] 熔断" />
+    <MESSAGE value="[feat] Hessian序列化、ProtoStuff序列化" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feat] Hessian序列化、ProtoStuff序列化" />
   </component>
 </project>

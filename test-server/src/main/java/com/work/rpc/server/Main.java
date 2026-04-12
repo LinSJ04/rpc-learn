@@ -1,15 +1,20 @@
 package com.work.rpc.server;
 
+import cn.hutool.core.collection.ListUtil;
 import com.work.rpc.api.UserService;
 import com.work.rpc.config.RpcServiceConfig;
 import com.work.rpc.dto.RpcReq;
 import com.work.rpc.factory.SingletonFactory;
+import com.work.rpc.loadbalance.impl.ConsistentHashLoadBalance;
+import com.work.rpc.loadbalance.impl.RoundLoadBalance;
 import com.work.rpc.serialize.impl.HessianSerializer;
 import com.work.rpc.serialize.impl.ProtoStuffSerializer;
 import com.work.rpc.transmission.netty.server.NettyRpcServer;
 import com.work.rpc.server.service.UserServiceImpl;
 import com.work.rpc.transmission.RpcServer;
 import io.protostuff.Rpc;
+
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -40,16 +45,27 @@ public class Main {
 //        rpcServer.publishService(rpcServiceConfig);
 //        rpcServer.start();
 
-        ProtoStuffSerializer serializer = SingletonFactory.getInstance(ProtoStuffSerializer.class);
+//        ProtoStuffSerializer serializer = SingletonFactory.getInstance(ProtoStuffSerializer.class);
+//
+//        RpcReq rpcReq = RpcReq.builder()
+//                .reqId("123123")
+//                .interfaceName("qwert")
+//                .parameterTypes(new Class<?>[]{String.class, Long.class})
+//                .build();
+//
+//        byte[] data = serializer.serialize(rpcReq);
+//        RpcReq req = serializer.deserialize(data, RpcReq.class);
+//        System.out.println("req = " + req);
 
+        ConsistentHashLoadBalance loadBalance = SingletonFactory.getInstance(ConsistentHashLoadBalance.class);
         RpcReq rpcReq = RpcReq.builder()
-                .reqId("123123")
-                .interfaceName("qwert")
-                .parameterTypes(new Class<?>[]{String.class, Long.class})
+                .interfaceName("test")
+                .group("group")
+                .version("version")
                 .build();
-
-        byte[] data = serializer.serialize(rpcReq);
-        RpcReq req = serializer.deserialize(data, RpcReq.class);
-        System.out.println("req = " + req);
+        List<String> list = ListUtil.of("ip1:port1", "ip2:port2", "ip3:port3");
+        for (int i = 0; i < 10; i++) {
+            System.out.println("select = " + loadBalance.select(list, rpcReq));
+        }
     }
 }
