@@ -4,27 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] Hessian序列化、ProtoStuff序列化">
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/config/RpcConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/spi/CustomLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/spi/Holder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/util/ConfigUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/resources/META-INF/work-rpc/com.work.rpc.balance.LoadBalance" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/rpc-core/src/main/resources/META-INF/work-rpc/com.work.rpc.serialize.Serializer" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test-api/src/main/java/com/work/rpc/api/MySerializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test-api/src/main/resources/META-INF/work-rpc/com.work.rpc.serialize.Serializer" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test-client/src/main/resources/rpc-config.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test-server/src/main/resources/META-INF/work-rpc/com.work.rpc.serialize.Serializer" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test-server/src/main/resources/rpc-config.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/enums/SerializeType.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/enums/SerializeType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/codec/NettyRpcDecoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/codec/NettyRpcDecoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/codec/NettyRpcEncoder.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/codec/NettyRpcEncoder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/client/NettyRpcClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/server/NettyRpcServerHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/transmission/netty/server/NettyRpcServerHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-client/src/main/java/com/work/rpc/client/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/test-server/src/main/java/com/work/rpc/server/Main.java" afterDir="false" />
+    <list default="true" id="3b6a2d97-3bae-4d25-b48e-1198c697ec96" name="Changes" comment="[feat] spi机制实现动态选择序列化器/使用自定义序列化器">
+      <change beforePath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/util/ConfigUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/rpc-core/src/main/java/com/work/rpc/util/ConfigUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,7 +54,7 @@
     "ignore.virus.scanning.warn.message": "true",
     "jdk.selected.JAVA_MODULE": "1.8.0_101",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/rpc-learn/test-api/src/main",
+    "last_opened_file_path": "D:/rpc-learn/test-client/src/main/resources",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -88,10 +69,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\rpc-learn\test-client\src\main\resources" />
+      <recent name="D:\rpc-learn\test-api\src\main" />
       <recent name="D:\rpc-learn\rpc-core\src\main\java\com\work\rpc\spi" />
       <recent name="D:\rpc-learn\rpc-core\src\main" />
       <recent name="D:\rpc-learn\test-client\src\main" />
-      <recent name="D:\rpc-learn\test-server\src\main" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.work.rpc.util" />
@@ -224,7 +206,7 @@
       <workItem from="1775916244894" duration="4128000" />
       <workItem from="1775922119469" duration="2795000" />
       <workItem from="1776008971382" duration="198000" />
-      <workItem from="1776009185303" duration="419000" />
+      <workItem from="1776009185303" duration="2077000" />
     </task>
     <task id="LOCAL-00001" summary="确认实现目标: 如何在client的main方法中实现对server的服务的远程调用.">
       <option name="closed" value="true" />
@@ -498,7 +480,15 @@
       <option name="project" value="LOCAL" />
       <updated>1775923145606</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="[feat] spi机制实现动态选择序列化器/使用自定义序列化器">
+      <option name="closed" value="true" />
+      <created>1776009914355</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1776009914355</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -528,7 +518,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="将对请求的处理放在一个单独的类RpcReqHandler中" />
     <MESSAGE value="线程池工具以及jvm运行结束时关闭线程池" />
     <MESSAGE value="fix" />
     <MESSAGE value="自定义异常" />
@@ -553,7 +542,8 @@
     <MESSAGE value="[feat] 令牌桶限流" />
     <MESSAGE value="[feat] 熔断" />
     <MESSAGE value="[feat] Hessian序列化、ProtoStuff序列化" />
-    <option name="LAST_COMMIT_MESSAGE" value="[feat] Hessian序列化、ProtoStuff序列化" />
+    <MESSAGE value="[feat] spi机制实现动态选择序列化器/使用自定义序列化器" />
+    <option name="LAST_COMMIT_MESSAGE" value="[feat] spi机制实现动态选择序列化器/使用自定义序列化器" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

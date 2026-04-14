@@ -78,6 +78,9 @@ public class CustomLoader<T> {
         // type.getName()例如Serializer的全类名
         String path = BASE_PATH + type.getName();
         ClassLoader classLoader = CustomLoader.class.getClassLoader();
+        // client调用的时候会同时扫描 client、rpc-core 模块下的 META-INF/work-rpc/接口全类名 文件
+
+        // 同理server调用的时候
         Enumeration<URL> urls = classLoader.getResources(path);
         
         if (CollUtil.isEmpty(urls)) {

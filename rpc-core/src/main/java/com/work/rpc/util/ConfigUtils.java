@@ -19,6 +19,7 @@ public class ConfigUtils {
         }
 
         Props props = new Props(CONFIG_FILE_NAME);
+        // 加载properties文件：serializer=custom
         if (props.isEmpty()) {
             rpcConfig = new RpcConfig();
             return;
